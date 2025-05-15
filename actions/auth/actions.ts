@@ -19,7 +19,9 @@ export async function signup(formData: FormData) {
   }
 
   revalidatePath("/", "layout");
-  redirect("/signin");
+
+  // Return success message instead of redirecting
+  return { message: "Signup successful! Please check your email to confirm your account." };
 }
 
 export async function signin(formData: FormData) {
