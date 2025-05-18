@@ -81,8 +81,18 @@ export default function ReportList() {
                 🎬 {report.movie} | 🗓 Running Day: {report.running_day}
               </div>
               <div className="text-sm text-gray-700">
-                🕒 {new Date(report.inserted_at).toLocaleString()}
-              </div>
+  🕒 {
+    (() => {
+      // Ensure the timestamp is ISO and parse as UTC
+      const isoDateStr = report.inserted_at.endsWith("Z")
+        ? report.inserted_at
+        : report.inserted_at + "Z";
+      const dt = new Date(isoDateStr);
+      return dt.toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+    })()
+  }
+</div>
+
               <div className="text-sm font-medium text-green-700">
                 Total Gross: ₹
                 {report.sections
